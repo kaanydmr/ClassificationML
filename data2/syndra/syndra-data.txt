@@ -1,0 +1,15 @@
+xinzhao,0,1
+jax,1,1
+jhin,0,1
+tahmkench,0,1
+skarner,1,0
+rell,1,0
+varus,1,0
+ashe,0,1
+leona,0,1
+amumu,0,1
+darius,0,1
+lucian,0,1
+nami,0,1
+sejuani,0,1
+renekton,0,1

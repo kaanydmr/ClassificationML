@@ -1,0 +1,16 @@
+sylas,1,0
+ashe,1,0
+gnar,1,0
+rakan,1,1
+jax,1,1
+akali,0,2
+jhin,0,1
+poppy,0,1
+aurora,1,0
+leona,1,0
+missfortune,2,0
+yone,1,0
+kennen,1,0
+rell,1,0
+kaisa,0,1
+smolder,0,1

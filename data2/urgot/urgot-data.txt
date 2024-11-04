@@ -1,0 +1,8 @@
+skarner,1,0
+kaisa,1,0
+rakan,1,0
+zeri,1,0
+kalista,0,1
+cassiopeia,0,1
+amumu,0,1
+renataglasc,0,1

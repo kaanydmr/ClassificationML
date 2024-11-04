@@ -1,0 +1,14 @@
+gnar,1,0
+neeko,1,0
+xinzhao,1,0
+xayah,2,0
+renataglasc,1,0
+kalista,0,1
+olaf,0,1
+leona,0,1
+nunu,0,1
+hwei,0,1
+aurora,1,0
+maokai,1,0
+smolder,1,0
+rakan,1,0

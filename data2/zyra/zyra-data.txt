@@ -1,0 +1,9 @@
+renekton,0,2
+ezreal,0,1
+poppy,0,1
+yasuo,0,1
+smolder,0,1
+jax,0,1
+rell,0,2
+kaisa,0,2
+yone,0,1

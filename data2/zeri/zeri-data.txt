@@ -1,0 +1,8 @@
+skarner,1,0
+kaisa,1,0
+rakan,1,0
+urgot,1,0
+jax,0,1
+ahri,0,1
+nocturne,0,1
+rell,0,1

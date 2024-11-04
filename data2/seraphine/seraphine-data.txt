@@ -1,0 +1,4 @@
+ashe,1,0
+galio,1,0
+xinzhao,1,0
+alistar,1,0

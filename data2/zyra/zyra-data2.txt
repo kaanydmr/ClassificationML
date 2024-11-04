@@ -1,0 +1,13 @@
+kalista,0,1
+olaf,0,1
+leona,0,2
+nunu,0,1
+hwei,0,1
+yone,0,1
+jarvaniv,0,1
+ziggs,0,1
+gnar,0,2
+skarner,0,1
+ezreal,0,1
+leblanc,0,1
+braum,0,1

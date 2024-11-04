@@ -1,0 +1,4 @@
+aurora,1,0
+nocturne,1,0
+ahri,1,0
+leona,1,0

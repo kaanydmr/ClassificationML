@@ -1,0 +1,8 @@
+kaisa,0,1
+vi,0,1
+cassiopeia,0,1
+rell,0,1
+kalista,1,0
+ivern,1,0
+leona,1,0
+orianna,1,0

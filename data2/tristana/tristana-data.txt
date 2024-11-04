@@ -1,0 +1,16 @@
+ashe,1,0
+nidalee,1,0
+maokai,1,2
+ksante,1,0
+rumble,2,2
+ivern,0,1
+leona,0,2
+missfortune,0,1
+nocturne,1,0
+xayah,1,0
+rakan,1,0
+aurora,0,1
+ezreal,0,1
+rell,1,1
+jhin,1,1
+sejuani,1,0

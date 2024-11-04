@@ -1,0 +1,9 @@
+sejuani,1,0
+ezreal,1,0
+sylas,1,1
+renekton,1,0
+braum,1,0
+ashe,0,1
+gnar,0,1
+rakan,0,1
+wukong,0,1
