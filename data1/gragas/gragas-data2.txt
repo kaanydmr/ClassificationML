@@ -1,0 +1,10 @@
+ezreal,0,1
+aurora,0,1
+gnar,0,1
+morgana,0,1
+braum,0,1
+nocturne,1,0
+orianna,1,0
+jax,1,0
+draven,1,0
+nautilus,1,0

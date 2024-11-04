@@ -1,0 +1,10 @@
+aurora,0,1
+ashe,0,2
+ksante,0,1
+renataglasc,0,2
+kalista,0,1
+cassiopeia,0,1
+urgot,0,1
+syndra,0,1
+leona,0,1
+darius,0,1

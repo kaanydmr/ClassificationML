@@ -1,0 +1,5 @@
+orianna,1,0
+ezreal,1,0
+rakan,1,0
+nunu,1,0
+renekton,1,0

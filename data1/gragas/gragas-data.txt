@@ -1,0 +1,8 @@
+yone,0,1
+vi,0,1
+rell,0,1
+missfortune,0,1
+ahri,1,0
+skarner,1,0
+jhin,1,0
+leona,1,0

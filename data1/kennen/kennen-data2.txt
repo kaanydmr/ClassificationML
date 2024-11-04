@@ -1,0 +1,14 @@
+gnar,0,1
+galio,0,1
+xayah,1,1
+poppy,0,1
+pyke,0,1
+aurora,0,1
+jax,0,1
+wukong,0,1
+leona,0,1
+missfortune,0,1
+rumble,1,0
+vi,1,0
+ahri,1,0
+rakan,1,0

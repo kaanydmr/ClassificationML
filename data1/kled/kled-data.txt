@@ -1,0 +1,4 @@
+sejuani,0,1
+rumble,0,1
+kaisa,0,1
+alistar,0,1

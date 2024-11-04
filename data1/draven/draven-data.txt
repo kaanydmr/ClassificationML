@@ -1,0 +1,8 @@
+nocturne,0,1
+orianna,0,1
+jax,0,1
+nautilus,0,1
+yone,1,0
+vi,1,0
+rumble,1,0
+renataglasc,1,0

@@ -1,0 +1,8 @@
+orianna,0,1
+ezreal,0,1
+rakan,0,1
+renekton,0,1
+kalista,1,0
+olaf,1,0
+leona,1,0
+hwei,1,0
