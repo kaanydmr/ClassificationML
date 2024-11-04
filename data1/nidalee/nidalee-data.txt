@@ -1,0 +1,11 @@
+ashe,2,0
+tristana,1,0
+maokai,1,0
+ksante,1,0
+jax,1,0
+nautilus,1,0
+kassadin,1,0
+renekton,0,1
+lucian,0,1
+missfortune,0,1
+leona,0,1

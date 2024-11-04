@@ -1,0 +1,13 @@
+skarner,0,1
+xayah,0,1
+sylas,0,1
+poppy,0,1
+gnar,1,1
+yone,0,1
+sejuani,0,1
+jax,0,1
+kaisa,0,1
+rell,1,1
+vi,1,0
+ahri,1,0
+jhin,1,0

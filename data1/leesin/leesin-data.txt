@@ -1,0 +1,4 @@
+kalista,1,0
+leblanc,1,0
+renataglasc,1,0
+rumble,1,0

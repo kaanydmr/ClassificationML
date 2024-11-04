@@ -1,0 +1,4 @@
+ashe,1,0
+nidalee,1,0
+jax,1,0
+nautilus,1,0

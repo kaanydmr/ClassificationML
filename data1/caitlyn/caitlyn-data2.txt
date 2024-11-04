@@ -1,0 +1,9 @@
+rumble,1,1
+ivern,1,0
+tristana,1,0
+leona,1,0
+missfortune,1,0
+kalista,0,1
+leblanc,0,1
+renataglasc,0,1
+leesin,0,1

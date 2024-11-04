@@ -1,0 +1,11 @@
+kalista,1,1
+leona,1,0
+nunu,1,0
+hwei,1,0
+ziggs,0,1
+maokai,0,1
+smolder,0,1
+alistar,0,1
+sejuani,0,1
+akali,0,1
+neeko,0,1

@@ -1,0 +1,5 @@
+skarner,0,1
+galio,0,1
+yone,0,1
+xayah,0,1
+rell,0,1
