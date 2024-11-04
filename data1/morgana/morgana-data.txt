@@ -1,4 +1,0 @@
-ezreal,1,0
-aurora,1,0
-gnar,1,0
-braum,1,0

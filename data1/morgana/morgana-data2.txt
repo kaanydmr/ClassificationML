@@ -1,5 +1,0 @@
-yone,1,0
-vi,1,0
-rell,1,0
-missfortune,1,0
-gragas,1,0

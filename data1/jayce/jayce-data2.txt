@@ -1,5 +1,0 @@
-skarner,1,0
-smolder,1,0
-poppy,1,0
-xayah,1,0
-rakan,1,0

@@ -1,8 +1,0 @@
-skarner,0,1
-rumble,0,1
-ahri,0,1
-leona,0,1
-poppy,0,1
-jax,0,1
-lucian,0,1
-ivern,0,1

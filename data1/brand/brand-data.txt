@@ -1,7 +1,0 @@
-yone,2,0
-ezreal,1,0
-gnar,1,0
-alistar,1,0
-rell,1,0
-jhin,1,0
-yasuo,1,0

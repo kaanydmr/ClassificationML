@@ -1,4 +1,0 @@
-kalista,1,0
-olaf,1,0
-leona,1,0
-nunu,1,0

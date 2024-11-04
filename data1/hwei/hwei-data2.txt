@@ -1,5 +1,0 @@
-renekton,1,0
-zyra,1,0
-ezreal,1,0
-poppy,1,0
-yasuo,1,0

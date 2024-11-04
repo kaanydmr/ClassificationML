@@ -1,5 +1,0 @@
-kalista,0,1
-leblanc,0,1
-renataglasc,0,1
-leesin,0,1
-rumble,0,1

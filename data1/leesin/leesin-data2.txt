@@ -1,5 +1,0 @@
-orianna,1,0
-nocturne,1,0
-jax,1,0
-caitlyn,1,0
-lux,1,0
