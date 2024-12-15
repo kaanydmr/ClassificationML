@@ -3,7 +3,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.feature_selection import RFECV
 import pandas as pd
 
-
+from sklearn.preprocessing import label_binarize
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
 import pandas as pd
@@ -29,6 +29,56 @@ from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_sc
 from sklearn.ensemble import AdaBoostClassifier
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.metrics import roc_curve, auc
+
+
+def plot_roc_curve(models_results):
+    """
+    Birden fazla model için ROC eğrisini çizer ve her bir modelin AUC değerini gösterir (OvR yaklaşımı).
+
+    Args:
+        models_results (list of dict): Modellerin sonuçlarının döndüğü sözlüklerden oluşan bir liste.
+                                       [{'model name': ..., 'y_test': ..., 'y_proba': ..., 'Test AUC': ...}, ...]
+
+    Returns:
+        None
+    """
+    try:
+        plt.figure(figsize=(10, 8))
+
+        # Sınıf etiketlerinin sırasını belirleyin
+        class_names = ['A', 'B', 'C']  # Etiketlerinizin sırası
+
+        for result in models_results:
+            model_name = result['model name']
+            y_test = result['y_test']
+            y_proba = result['y_proba']
+
+            # Sınıfları binarize et
+            y_test_bin = label_binarize(y_test, classes=class_names)
+
+            # Her sınıf için ROC eğrisini çiz
+            for i, class_name in enumerate(class_names):
+                fpr, tpr, _ = roc_curve(y_test_bin[:, i], y_proba[:, i])
+                roc_auc = auc(fpr, tpr)
+
+                # ROC Eğrisini çiz
+                plt.plot(fpr, tpr, lw=2, label=f'{model_name} - Class {class_name} (AUC = {roc_auc:.2f})')
+
+        # Rastgele tahmin çizgisi
+        plt.plot([0, 1], [0, 1], color='red', linestyle='--', lw=2, label='Random Guess')
+
+        # Grafiği düzenle
+        plt.xlabel('False Positive Rate')
+        plt.ylabel('True Positive Rate')
+        plt.title('ROC Curves for Multiple Models (OvR)')
+        plt.legend(loc='lower right')
+        plt.grid()
+        plt.show()
+
+    except Exception as e:
+        print(f"ROC eğrisi çizim hatası: {e}")
 
 def safe_roc_auc_score(y_true, y_proba, multi_class='ovr', average='macro'):
     """
@@ -172,12 +222,16 @@ def decision_tree_classification_with_feature_selection(train_data, target_colum
         'Test Precision': precision_test,
         'Test Recall': recall_test,
         'Test AUC': auc_test,
-        'Test MCC': mcc_test
+        'Test MCC': mcc_test,
+        'y_test' : y_test,
+        'y_proba': y_proba,
+        'model name': 'Decision tree fs'
+
     })
 
     return metrics
 
-def decision_tree_classification_no_feature_selection(train_data, target_column, test_data, random_state=42):
+def decision_tree_classification_no_feature_selection(train_data, target_column, test_data, random_state=42,k=5):
     """
     Decision Tree sınıflandırma ve 5-katlı çapraz doğrulama ile performans metriklerini raporlar.
     Test verisi parametre olarak alınır.
@@ -268,7 +322,7 @@ def decision_tree_classification_no_feature_selection(train_data, target_column,
     precision_test = precision_score(y_test, y_pred_test, average='macro')
     recall_test = recall_score(y_test, y_pred_test, average='macro')
 
-    auc_test = safe_roc_auc_score(y_test, y_proba, multi_class='ovr', average='macro')
+    auc_test = safe_roc_auc_score(y_test, y_proba_test, multi_class='ovr', average='macro')
 
     mcc_test = matthews_corrcoef(y_test, y_pred_test)
 
@@ -279,7 +333,11 @@ def decision_tree_classification_no_feature_selection(train_data, target_column,
         'Test Precision': precision_test,
         'Test Recall': recall_test,
         'Test AUC': auc_test,
-        'Test MCC': mcc_test
+        'Test MCC': mcc_test,
+        'y_test' : y_test,
+        'y_proba': y_proba_test,
+        'model name': 'Decision tree no fs'
+
     })
 
     return metrics
@@ -402,12 +460,15 @@ def knn_classification_with_feature_selection(train_data, target_column, test_da
         'Test Precision': precision_test,
         'Test Recall': recall_test,
         'Test AUC': auc_test,
-        'Test MCC': mcc_test
+        'Test MCC': mcc_test,
+        'y_test': y_test,
+        'y_proba': y_proba,
+        'model name': 'KNN fs'
     })
 
     return metrics
 
-def knn_classification_no_feature_selection(train_data, target_column, test_data=None, n_neighbors=5, random_state=42):
+def knn_classification_no_feature_selection(train_data, target_column, test_data=None, n_neighbors=5, random_state=42,k=5):
     """
     KNN sınıflandırma ve 5-katlı çapraz doğrulama ile performans metriklerini raporlar.
     Test verisi parametre olarak alınır.
@@ -498,7 +559,7 @@ def knn_classification_no_feature_selection(train_data, target_column, test_data
     precision_test = precision_score(y_test, y_pred_test, average='macro')
     recall_test = recall_score(y_test, y_pred_test, average='macro')
 
-    auc_test = safe_roc_auc_score(y_test, y_proba, multi_class='ovr', average='macro')
+    auc_test = safe_roc_auc_score(y_test, y_proba_test, multi_class='ovr', average='macro')
 
     mcc_test = matthews_corrcoef(y_test, y_pred_test)
 
@@ -509,12 +570,15 @@ def knn_classification_no_feature_selection(train_data, target_column, test_data
         'Test Precision': precision_test,
         'Test Recall': recall_test,
         'Test AUC': auc_test,
-        'Test MCC': mcc_test
+        'Test MCC': mcc_test,
+        'y_test': y_test,
+        'y_proba': y_proba_test,
+        'model name': 'KNN no fs'
     })
 
     return metrics
 
-def naive_bayes_classification_no_feature_selection(train_data, target_column, test_data=None, random_state=42):
+def naive_bayes_classification_no_feature_selection(train_data, target_column, test_data=None, random_state=42,k=5):
     """
     Naive Bayes sınıflandırma ve 5-katlı çapraz doğrulama ile performans metriklerini raporlar.
 
@@ -618,7 +682,10 @@ def naive_bayes_classification_no_feature_selection(train_data, target_column, t
         'Test Precision': precision_test,
         'Test Recall': recall_test,
         'Test AUC': auc_test,
-        'Test MCC': mcc_test
+        'Test MCC': mcc_test,
+        'y_test': y_test,
+        'y_proba': y_proba,
+        'model name': 'naive bayes no fs'
     })
 
     return metrics
@@ -735,12 +802,15 @@ def naive_bayes_classification_with_feature_selection(train_data, target_column,
         'Test Precision': precision_test,
         'Test Recall': recall_test,
         'Test AUC': auc_test,
-        'Test MCC': mcc_test
+        'Test MCC': mcc_test,
+        'y_test': y_test,
+        'y_proba': y_proba,
+        'model name': 'naive bayes fs'
     })
 
     return metrics
 
-def logistic_regression_classification_no_feature_selection(train_data, target_column, test_data=None, random_state=42):
+def logistic_regression_classification_no_feature_selection(train_data, target_column, test_data=None, random_state=42,k=5):
     """
     Logistic Regression sınıflandırma ve 5-katlı çapraz doğrulama ile performans metriklerini raporlar.
 
@@ -844,7 +914,10 @@ def logistic_regression_classification_no_feature_selection(train_data, target_c
         'Test Precision': precision_test,
         'Test Recall': recall_test,
         'Test AUC': auc_test,
-        'Test MCC': mcc_test
+        'Test MCC': mcc_test,
+        'y_test': y_test,
+        'y_proba': y_proba,
+        'model name': 'logistic regression no fs'
     })
 
     return metrics
@@ -961,7 +1034,10 @@ def logistic_regression_classification_with_feature_selection(train_data, target
         'Test Precision': precision_test,
         'Test Recall': recall_test,
         'Test AUC': auc_test,
-        'Test MCC': mcc_test
+        'Test MCC': mcc_test,
+        'y_test': y_test,
+        'y_proba': y_proba,
+        'model name': 'logistic regression fs'
     })
 
     return metrics
@@ -1078,12 +1154,15 @@ def random_forest_classification_with_feature_selection(train_data, target_colum
         'Test Precision': precision_test,
         'Test Recall': recall_test,
         'Test AUC': auc_test,
-        'Test MCC': mcc_test
+        'Test MCC': mcc_test,
+        'y_test': y_test,
+        'y_proba': y_proba,
+        'model name': 'random forest fs'
     })
 
     return metrics
 
-def random_forest_classification_no_feature_selection(train_data, target_column, test_data, random_state=42):
+def random_forest_classification_no_feature_selection(train_data, target_column, test_data, random_state=42,k=5):
     """
     Random Forest sınıflandırma ve 5-katlı çapraz doğrulama ile performans metriklerini raporlar.
 
@@ -1186,12 +1265,15 @@ def random_forest_classification_no_feature_selection(train_data, target_column,
         'Test Precision': precision_test,
         'Test Recall': recall_test,
         'Test AUC': auc_test,
-        'Test MCC': mcc_test
+        'Test MCC': mcc_test,
+        'y_test': y_test,
+        'y_proba': y_proba,
+        'model name': 'random forest no fs'
     })
 
     return metrics
 
-def svm_classification_no_feature_selection(train_data, target_column, test_data, random_state=42):
+def svm_classification_no_feature_selection(train_data, target_column, test_data, random_state=42,k=5):
     """
     Support Vector Machine (SVM) sınıflandırma ve 5-katlı çapraz doğrulama ile performans metriklerini raporlar.
 
@@ -1294,7 +1376,10 @@ def svm_classification_no_feature_selection(train_data, target_column, test_data
         'Test Precision': precision_test,
         'Test Recall': recall_test,
         'Test AUC': auc_test,
-        'Test MCC': mcc_test
+        'Test MCC': mcc_test,
+        'y_test': y_test,
+        'y_proba': y_proba,
+        'model name': 'svm no fs'
     })
 
     return metrics
@@ -1411,7 +1496,10 @@ def svm_classification_with_feature_selection(train_data, target_column, test_da
         'Test Precision': precision_test,
         'Test Recall': recall_test,
         'Test AUC': auc_test,
-        'Test MCC': mcc_test
+        'Test MCC': mcc_test,
+        'y_test': y_test,
+        'y_proba': y_proba,
+        'model name': 'svm fs'
     })
 
     return metrics
@@ -1528,12 +1616,15 @@ def gbm_classification_with_feature_selection(train_data, target_column, test_da
         'Test Precision': precision_test,
         'Test Recall': recall_test,
         'Test AUC': auc_test,
-        'Test MCC': mcc_test
+        'Test MCC': mcc_test,
+        'y_test': y_test,
+        'y_proba': y_proba,
+        'model name': 'gbm fs'
     })
 
     return metrics
 
-def gbm_classification_no_feature_selection(train_data, target_column, test_data, random_state=42):
+def gbm_classification_no_feature_selection(train_data, target_column, test_data, random_state=42,k=5):
     """
     Gradient Boosting Machine (GBM) sınıflandırma ve 5-katlı çapraz doğrulama ile performans metriklerini raporlar.
 
@@ -1637,13 +1728,16 @@ def gbm_classification_no_feature_selection(train_data, target_column, test_data
         'Test Precision': precision_test,
         'Test Recall': recall_test,
         'Test AUC': auc_test,
-        'Test MCC': mcc_test
+        'Test MCC': mcc_test,
+        'y_test': y_test,
+        'y_proba': y_proba,
+        'model name': 'gbm no fs'
     })
 
     return metrics
 
 
-def adaboost_classification_no_feature_selection(train_data, target_column, test_data, random_state=42):
+def adaboost_classification_no_feature_selection(train_data, target_column, test_data, random_state=42,k=5):
     """
     AdaBoost sınıflandırma ve 5-katlı çapraz doğrulama ile performans metriklerini raporlar.
 
@@ -1747,7 +1841,10 @@ def adaboost_classification_no_feature_selection(train_data, target_column, test
         'Test Precision': precision_test,
         'Test Recall': recall_test,
         'Test AUC': auc_test,
-        'Test MCC': mcc_test
+        'Test MCC': mcc_test,
+        'y_test': y_test,
+        'y_proba': y_proba,
+        'model name': 'ada no fs'
     })
 
     return metrics
@@ -1864,7 +1961,10 @@ def adaboost_classification_with_feature_selection(train_data, target_column, te
         'Test Precision': precision_test,
         'Test Recall': recall_test,
         'Test AUC': auc_test,
-        'Test MCC': mcc_test
+        'Test MCC': mcc_test,
+        'y_test': y_test,
+        'y_proba': y_proba,
+        'model name': 'ada fs'
     })
 
     return metrics
@@ -1981,12 +2081,15 @@ def lda_classification_with_feature_selection(train_data, target_column, test_da
         'Test Precision': precision_test,
         'Test Recall': recall_test,
         'Test AUC': auc_test,
-        'Test MCC': mcc_test
+        'Test MCC': mcc_test,
+        'y_test': y_test,
+        'y_proba': y_proba,
+        'model name': 'lda fs'
     })
 
     return metrics
 
-def lda_classification_no_feature_selection(train_data, target_column, test_data, random_state=42):
+def lda_classification_no_feature_selection(train_data, target_column, test_data, random_state=42,k=5):
     """
     Linear Discriminant Analysis (LDA) sınıflandırma ve 5-katlı çapraz doğrulama ile performans metriklerini raporlar.
 
@@ -2090,12 +2193,15 @@ def lda_classification_no_feature_selection(train_data, target_column, test_data
         'Test Precision': precision_test,
         'Test Recall': recall_test,
         'Test AUC': auc_test,
-        'Test MCC': mcc_test
+        'Test MCC': mcc_test,
+        'y_test': y_test,
+        'y_proba': y_proba,
+        'model name': 'lda no fs'
     })
 
     return metrics
 
-def ann_classification_no_feature_selection(train_data, target_column, test_data, random_state=42):
+def ann_classification_no_feature_selection(train_data, target_column, test_data, random_state=42,k=5):
     """
     Artificial Neural Network (ANN) sınıflandırma ve 5-katlı çapraz doğrulama ile performans metriklerini raporlar.
 
@@ -2199,7 +2305,10 @@ def ann_classification_no_feature_selection(train_data, target_column, test_data
         'Test Precision': precision_test,
         'Test Recall': recall_test,
         'Test AUC': auc_test,
-        'Test MCC': mcc_test
+        'Test MCC': mcc_test,
+        'y_test': y_test,
+        'y_proba': y_proba,
+        'model name': 'ANN no fs'
     })
 
     return metrics
@@ -2316,7 +2425,10 @@ def ann_classification_with_feature_selection(train_data, target_column, test_da
         'Test Precision': precision_test,
         'Test Recall': recall_test,
         'Test AUC': auc_test,
-        'Test MCC': mcc_test
+        'Test MCC': mcc_test,
+        'y_test': y_test,
+        'y_proba': y_proba,
+        'model name': 'ANN fs'
     })
 
     return metrics
@@ -2327,108 +2439,132 @@ array = ['CropEstablishment_CT','CropEstablishment_ZT','LandType_Lowland','LandT
 # 'CropEstablishment_CT_line'
 path = 'Data_processed2.xlsx'
 
+
 for name in array:
     df = pd.read_excel(path)
     df = df[df[name] == 1]
 
-
+    roc_data_fs = []
+    roc_data_no_fs = []
 
     train_data, test_data = train_test_split(df, test_size=0.2, random_state=42)
 
     print(name)
+
     print('Decision Tree fs')
     metrics = decision_tree_classification_with_feature_selection(train_data, 'GrainYield', test_data=test_data, k=5)
-    print(metrics)
+    roc_data_fs.append(metrics)
+    print(metrics['Test Accuracy'])
     print('_______________________________________')
-    metrics = decision_tree_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
     print('Decision Tree no fs')
-    print(metrics)
+    metrics = decision_tree_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
+    roc_data_no_fs.append(metrics)
+    print(metrics['Test Accuracy'])
     print('_______________________________________')
 
 
     print('knn fs')
     metrics = knn_classification_with_feature_selection(train_data, 'GrainYield', test_data=test_data, k=5)
-    print(metrics)
+    roc_data_fs.append(metrics)
+    print(metrics['Test Accuracy'])
     print('_______________________________________')
-    metrics = knn_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
     print('knn no fs')
-    print(metrics)
+    metrics = knn_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
+    print(metrics['Test Accuracy'])
     print('_______________________________________')
 
 
     print('naivebayes fs')
     metrics = naive_bayes_classification_with_feature_selection(train_data, 'GrainYield', test_data, k=5)
-    print(metrics)
+    roc_data_fs.append(metrics)
+    print(metrics['Test Accuracy'])
     print('_______________________________________')
-    metrics = naive_bayes_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
     print('naive bayes no fs')
-    print(metrics)
+    metrics = naive_bayes_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
+    roc_data_no_fs.append(metrics)
+    print(metrics['Test Accuracy'])
     print('_______________________________________')
 
 
     print('random forest fs')
     metrics = random_forest_classification_with_feature_selection(train_data, 'GrainYield', test_data=test_data, k=5)
-    print(metrics)
+    roc_data_fs.append(metrics)
+    print(metrics['Test Accuracy'])
     print('_______________________________________')
-    metrics = random_forest_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
     print('random forest no fs')
-    print(metrics)
+    metrics = random_forest_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
+    roc_data_no_fs.append(metrics)
+    print(metrics['Test Accuracy'])
     print('_______________________________________')
 
     print('logistic regression fs')
     metrics = logistic_regression_classification_with_feature_selection(train_data, 'GrainYield', test_data=test_data, k=5)
-    print(metrics)
+    roc_data_fs.append(metrics)
+    print(metrics['Test Accuracy'])
     print('_______________________________________')
-    metrics = logistic_regression_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
     print('logistic regression no fs')
-    print(metrics)
+    metrics = logistic_regression_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
+    roc_data_no_fs.append(metrics)
+    print(metrics['Test Accuracy'])
     print('_______________________________________')
 
     print('svm fs')
     metrics = svm_classification_with_feature_selection(train_data, 'GrainYield', test_data=test_data,k=5)
-    print(metrics)
+    roc_data_fs.append(metrics)
+    print(metrics['Test Accuracy'])
     print('_______________________________________')
-    metrics = svm_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
     print('svm no fs')
-    print(metrics)
+    metrics = svm_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
+    roc_data_no_fs.append(metrics)
+    print(metrics['Test Accuracy'])
     print('_______________________________________')
 
     print('gbm fs')
     metrics = gbm_classification_with_feature_selection(train_data, 'GrainYield', test_data=test_data,k=5)
-    print(metrics)
+    roc_data_fs.append(metrics)
+    print(metrics['Test Accuracy'])
     print('_______________________________________')
-    metrics = gbm_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
     print('gbm no fs')
-    print(metrics)
+    metrics = gbm_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
+    roc_data_no_fs.append(metrics)
+    print(metrics['Test Accuracy'])
     print('_______________________________________')
 
     print('lda fs')
     metrics = lda_classification_with_feature_selection(train_data, 'GrainYield', test_data=test_data,k=5)
-    print(metrics)
+    roc_data_fs.append(metrics)
+    print(metrics['Test Accuracy'])
     print('_______________________________________')
-    metrics = lda_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
     print('lda no fs')
-    print(metrics)
+    metrics = lda_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
+    roc_data_no_fs.append(metrics)
+    print(metrics['Test Accuracy'])
     print('_______________________________________')
 
     print('ann fs')
     metrics = ann_classification_with_feature_selection(train_data, 'GrainYield', test_data=test_data,k=5)
-    print(metrics)
+    roc_data_fs.append(metrics)
+    print(metrics['Test Accuracy'])
     print('_______________________________________')
-    metrics = ann_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
     print('ann no fs')
-    print(metrics)
+    metrics = ann_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
+    roc_data_no_fs.append(metrics)
+    print(metrics['Test Accuracy'])
     print('_______________________________________')
 
     print('adaboost fs')
     metrics = adaboost_classification_with_feature_selection(train_data, 'GrainYield', test_data=test_data, k=5)
-    print(metrics)
+    roc_data_fs.append(metrics)
+    print(metrics['Test Accuracy'])
     print('_______________________________________')
-    metrics = adaboost_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
     print('adaboost no fs')
-    print(metrics)
+    metrics = adaboost_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
+    roc_data_no_fs.append(metrics)
+    print(metrics['Test Accuracy'])
     print('_______________________________________')
 
+    plot_roc_curve(roc_data_fs)
+    plot_roc_curve(roc_data_no_fs)
 
 
 
