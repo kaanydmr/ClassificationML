@@ -2,7 +2,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.feature_selection import RFECV
 import pandas as pd
-
+from imblearn.over_sampling import SMOTE
 from sklearn.preprocessing import label_binarize
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
@@ -2459,6 +2459,31 @@ for name in array:
     df = pd.read_excel(path)
     df = df[df[name] == 1]
 
+    print(len(df))
+    if len(df) < 100000:
+        print(f"SMOTE uygulanıyor: {name}")
+
+        X = df.drop(columns=['GrainYield'])
+        y = df['GrainYield']
+
+        # Sınıfların sayısını kontrol et
+        class_counts = y.value_counts()
+
+        # Sınıfların sayısı 1'den fazla olmalı, yoksa SMOTE uygulanmasın
+        if all(class_counts > 1):  # Tüm sınıflar için yeterli örnek olmalı
+            # SMOTE işlemi
+            smote = SMOTE(random_state=42)
+            X_resampled, y_resampled = smote.fit_resample(X, y)
+
+            # Yeni veri çerçevesi oluşturuluyor
+            df = pd.concat([pd.DataFrame(X_resampled, columns=X.columns),
+                            pd.DataFrame(y_resampled, columns=['GrainYield'])], axis=1)
+        else:
+            print(f"Yeterli sınıf örneği yok, SMOTE uygulanmadı: {name}")
+    else:
+        print(f"SMOTE gerekmiyor: {name}")
+
+    print(len(df))
     best = []
 
     accuracy_list = []
@@ -2604,11 +2629,11 @@ for name in array:
 
     accuracy_list.sort(key=lambda x: x['Test Accuracy'], reverse=True)
     for i in range (0,3):
-        print(f'{i+1}. {accuracy_list[i]['model name']} : {accuracy_list[i]['Test Accuracy']}\n')
+        print(f"{i+1}. {accuracy_list[i]['model name']} : {accuracy_list[i]['Test Accuracy']}\n")
         best.append(accuracy_list[i])
 
 
-    plot_roc_curve(best, name)
+#   plot_roc_curve(best, name)
 
 
 
