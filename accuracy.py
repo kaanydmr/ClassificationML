@@ -31,20 +31,28 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import roc_curve, auc
+import os
 
-
-def plot_roc_curve(models_results):
+def plot_roc_curve(models_results, name):
     """
     Birden fazla model için ROC eğrisini çizer ve her bir modelin AUC değerini gösterir (OvR yaklaşımı).
+    Grafikleri belirtilen klasöre kaydeder.
 
     Args:
         models_results (list of dict): Modellerin sonuçlarının döndüğü sözlüklerden oluşan bir liste.
                                        [{'model name': ..., 'y_test': ..., 'y_proba': ..., 'Test AUC': ...}, ...]
+        name (str): Grafiğin başlığı ve dosya adında kullanılacak isim.
+        save_dir (str): Grafiğin kaydedileceği klasörün yolu.
 
     Returns:
         None
     """
     try:
+        save_dir = f'roc_curves'
+        # Klasör yoksa oluştur
+        if not os.path.exists(save_dir):
+            os.makedirs(save_dir)
+
         plt.figure(figsize=(10, 8))
 
         # Sınıf etiketlerinin sırasını belirleyin
@@ -72,9 +80,16 @@ def plot_roc_curve(models_results):
         # Grafiği düzenle
         plt.xlabel('False Positive Rate')
         plt.ylabel('True Positive Rate')
-        plt.title('ROC Curves for Multiple Models (OvR)')
+        plt.title(f'{name} - ROC Curves for Multiple Models (OvR)')
         plt.legend(loc='lower right')
         plt.grid()
+
+        # Grafik kaydet
+        file_path = os.path.join(save_dir, f"{name}_roc_curve.png")
+        plt.savefig(file_path)
+        print(f"Grafik {file_path} olarak kaydedildi.")
+
+        # Grafik göster
         plt.show()
 
     except Exception as e:
@@ -2444,8 +2459,9 @@ for name in array:
     df = pd.read_excel(path)
     df = df[df[name] == 1]
 
-    roc_data_fs = []
-    roc_data_no_fs = []
+    best = []
+
+    accuracy_list = []
 
     train_data, test_data = train_test_split(df, test_size=0.2, random_state=42)
 
@@ -2453,119 +2469,146 @@ for name in array:
 
     print('Decision Tree fs')
     metrics = decision_tree_classification_with_feature_selection(train_data, 'GrainYield', test_data=test_data, k=5)
-    roc_data_fs.append(metrics)
+
+    accuracy_list.append(metrics)
     print(metrics['Test Accuracy'])
     print('_______________________________________')
     print('Decision Tree no fs')
     metrics = decision_tree_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
-    roc_data_no_fs.append(metrics)
+
+    accuracy_list.append(metrics)
     print(metrics['Test Accuracy'])
     print('_______________________________________')
 
 
     print('knn fs')
     metrics = knn_classification_with_feature_selection(train_data, 'GrainYield', test_data=test_data, k=5)
-    roc_data_fs.append(metrics)
+
+    accuracy_list.append(metrics)
     print(metrics['Test Accuracy'])
     print('_______________________________________')
     print('knn no fs')
     metrics = knn_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
+
+    accuracy_list.append(metrics)
     print(metrics['Test Accuracy'])
     print('_______________________________________')
 
 
     print('naivebayes fs')
     metrics = naive_bayes_classification_with_feature_selection(train_data, 'GrainYield', test_data, k=5)
-    roc_data_fs.append(metrics)
+
+    accuracy_list.append(metrics)
     print(metrics['Test Accuracy'])
     print('_______________________________________')
     print('naive bayes no fs')
     metrics = naive_bayes_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
-    roc_data_no_fs.append(metrics)
+
+    accuracy_list.append(metrics)
     print(metrics['Test Accuracy'])
     print('_______________________________________')
 
 
     print('random forest fs')
     metrics = random_forest_classification_with_feature_selection(train_data, 'GrainYield', test_data=test_data, k=5)
-    roc_data_fs.append(metrics)
+
+    accuracy_list.append(metrics)
     print(metrics['Test Accuracy'])
     print('_______________________________________')
     print('random forest no fs')
     metrics = random_forest_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
-    roc_data_no_fs.append(metrics)
+
+    accuracy_list.append(metrics)
     print(metrics['Test Accuracy'])
     print('_______________________________________')
 
     print('logistic regression fs')
     metrics = logistic_regression_classification_with_feature_selection(train_data, 'GrainYield', test_data=test_data, k=5)
-    roc_data_fs.append(metrics)
+
+    accuracy_list.append(metrics)
     print(metrics['Test Accuracy'])
     print('_______________________________________')
     print('logistic regression no fs')
     metrics = logistic_regression_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
-    roc_data_no_fs.append(metrics)
+
+    accuracy_list.append(metrics)
     print(metrics['Test Accuracy'])
     print('_______________________________________')
 
     print('svm fs')
     metrics = svm_classification_with_feature_selection(train_data, 'GrainYield', test_data=test_data,k=5)
-    roc_data_fs.append(metrics)
+
+    accuracy_list.append(metrics)
     print(metrics['Test Accuracy'])
     print('_______________________________________')
     print('svm no fs')
     metrics = svm_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
-    roc_data_no_fs.append(metrics)
+
+    accuracy_list.append(metrics)
     print(metrics['Test Accuracy'])
     print('_______________________________________')
 
     print('gbm fs')
     metrics = gbm_classification_with_feature_selection(train_data, 'GrainYield', test_data=test_data,k=5)
-    roc_data_fs.append(metrics)
+
+    accuracy_list.append(metrics)
     print(metrics['Test Accuracy'])
     print('_______________________________________')
     print('gbm no fs')
     metrics = gbm_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
-    roc_data_no_fs.append(metrics)
+
+    accuracy_list.append(metrics)
     print(metrics['Test Accuracy'])
     print('_______________________________________')
 
     print('lda fs')
     metrics = lda_classification_with_feature_selection(train_data, 'GrainYield', test_data=test_data,k=5)
-    roc_data_fs.append(metrics)
+
+    accuracy_list.append(metrics)
     print(metrics['Test Accuracy'])
     print('_______________________________________')
     print('lda no fs')
     metrics = lda_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
-    roc_data_no_fs.append(metrics)
+
+    accuracy_list.append(metrics)
     print(metrics['Test Accuracy'])
     print('_______________________________________')
 
     print('ann fs')
     metrics = ann_classification_with_feature_selection(train_data, 'GrainYield', test_data=test_data,k=5)
-    roc_data_fs.append(metrics)
+
+    accuracy_list.append(metrics)
     print(metrics['Test Accuracy'])
     print('_______________________________________')
     print('ann no fs')
     metrics = ann_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
-    roc_data_no_fs.append(metrics)
+
+    accuracy_list.append(metrics)
     print(metrics['Test Accuracy'])
     print('_______________________________________')
 
     print('adaboost fs')
     metrics = adaboost_classification_with_feature_selection(train_data, 'GrainYield', test_data=test_data, k=5)
-    roc_data_fs.append(metrics)
+
+    accuracy_list.append(metrics)
     print(metrics['Test Accuracy'])
     print('_______________________________________')
     print('adaboost no fs')
     metrics = adaboost_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
-    roc_data_no_fs.append(metrics)
+
+    accuracy_list.append(metrics)
     print(metrics['Test Accuracy'])
     print('_______________________________________')
 
-    plot_roc_curve(roc_data_fs)
-    plot_roc_curve(roc_data_no_fs)
 
+
+    accuracy_list.sort(key=lambda x: x['Test Accuracy'], reverse=True)
+    for i in range (0,3):
+        print(f'{i+1}. {accuracy_list[i]['model name']} : {accuracy_list[i]['Test Accuracy']}\n')
+        best.append(accuracy_list[i])
+
+
+    plot_roc_curve(best, name)
 
 
 
