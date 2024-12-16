@@ -1,5 +1,0 @@
-nocturne,0,1
-tristana,0,1
-rumble,0,1
-xayah,0,1
-rakan,0,1

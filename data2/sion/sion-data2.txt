@@ -1,8 +1,0 @@
-skarner,0,1
-xayah,0,1
-sylas,0,1
-poppy,1,1
-gnar,1,1
-vi,1,0
-jhin,1,0
-akali,1,0

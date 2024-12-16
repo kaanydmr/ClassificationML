@@ -1,5 +1,0 @@
-smolder,1,0
-sejuani,1,0
-gnar,1,0
-varus,1,0
-renataglasc,1,0

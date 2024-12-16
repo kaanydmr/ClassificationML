@@ -1,4 +1,0 @@
-sylas,0,1
-ezreal,0,1
-rell,0,1
-galio,0,1

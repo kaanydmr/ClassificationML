@@ -1,4 +1,0 @@
-gnar,1,0
-galio,1,0
-xayah,1,0
-poppy,1,0

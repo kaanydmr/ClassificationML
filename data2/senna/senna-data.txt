@@ -1,4 +1,0 @@
-ksante,0,1
-ahri,0,1
-kalista,0,1
-vi,0,1

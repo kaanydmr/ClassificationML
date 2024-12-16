@@ -1,5 +1,0 @@
-skarner,0,1
-ahri,0,1
-ezreal,0,1
-rakan,0,1
-gnar,0,1

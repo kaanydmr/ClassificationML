@@ -1,5 +1,0 @@
-skarner,1,0
-rumble,1,0
-ahri,1,0
-jinx,1,0
-leona,1,0

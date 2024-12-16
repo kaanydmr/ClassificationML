@@ -1,5 +1,0 @@
-skarner,0,1
-orianna,0,1
-ashe,0,1
-ksante,0,1
-lulu,0,1

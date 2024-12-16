@@ -1,4 +1,0 @@
-xinzhao,0,1
-renekton,0,1
-kalista,0,1
-taric,0,1
