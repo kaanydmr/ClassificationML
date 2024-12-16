@@ -1,4 +1,0 @@
-orianna,0,1
-nocturne,0,1
-jax,0,1
-caitlyn,0,1

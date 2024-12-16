@@ -1,5 +1,0 @@
-rumble,1,0
-ivern,1,0
-tristana,1,0
-leona,1,0
-missfortune,1,0

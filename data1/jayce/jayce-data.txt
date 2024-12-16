@@ -1,4 +1,0 @@
-jax,1,0
-sejuani,1,0
-kaisa,1,0
-nautilus,1,0

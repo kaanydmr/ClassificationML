@@ -1,5 +1,0 @@
-smolder,1,0
-zyra,1,0
-jax,1,0
-rell,1,0
-kaisa,1,0

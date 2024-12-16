@@ -1,4 +1,0 @@
-yone,0,1
-kalista,0,1
-sett,0,1
-alistar,0,1

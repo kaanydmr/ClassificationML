@@ -1,4 +1,0 @@
-lucian,0,1
-sejuani,0,1
-syndra,0,1
-renekton,0,1

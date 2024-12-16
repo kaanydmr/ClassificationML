@@ -1,9 +1,0 @@
-aurora,2,0
-nocturne,1,0
-kaisa,1,0
-camille,1,0
-nautilus,1,0
-maokai,1,0
-smolder,1,0
-xayah,1,0
-rakan,1,0

@@ -1,5 +1,0 @@
-sylas,1,0
-poppy,1,0
-gnar,1,0
-missfortune,1,0
-rell,1,0

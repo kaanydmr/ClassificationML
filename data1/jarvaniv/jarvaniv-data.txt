@@ -1,4 +1,0 @@
-yone,1,0
-ziggs,1,0
-leona,1,0
-gnar,1,0

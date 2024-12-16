@@ -1,4 +1,0 @@
-ashe,0,1
-syndra,0,1
-leona,0,1
-amumu,0,1

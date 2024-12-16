@@ -1,5 +1,0 @@
-skarner,0,1
-smolder,0,1
-rumble,0,1
-ziggs,0,1
-maokai,0,1

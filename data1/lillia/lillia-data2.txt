@@ -1,5 +1,0 @@
-sejuani,0,1
-jax,0,1
-smolder,0,1
-ashe,0,1
-braum,0,1
