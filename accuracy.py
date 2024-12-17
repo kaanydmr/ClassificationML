@@ -32,6 +32,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import roc_curve, auc
 import os
+from sklearn.metrics import confusion_matrix
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 def plot_roc_curve(models_results, name):
     """
@@ -230,6 +233,7 @@ def decision_tree_classification_with_feature_selection(train_data, target_colum
 
     mcc_test = matthews_corrcoef(y_test, y_pred)
 
+    conf_matrix = confusion_matrix(y_test, y_pred)
     # Test verisi metriklerini ekle
     metrics.update({
         'Test Accuracy': accuracy_test,
@@ -238,6 +242,7 @@ def decision_tree_classification_with_feature_selection(train_data, target_colum
         'Test Recall': recall_test,
         'Test AUC': auc_test,
         'Test MCC': mcc_test,
+        'Confusion Matrix': conf_matrix,
         'y_test' : y_test,
         'y_proba': y_proba,
         'model name': 'Decision tree fs'
@@ -341,6 +346,7 @@ def decision_tree_classification_no_feature_selection(train_data, target_column,
 
     mcc_test = matthews_corrcoef(y_test, y_pred_test)
 
+    conf_matrix = confusion_matrix(y_test, y_pred_test)
     # Test setindeki metrikleri ekle
     metrics.update({
         'Test Accuracy': accuracy_test,
@@ -349,6 +355,7 @@ def decision_tree_classification_no_feature_selection(train_data, target_column,
         'Test Recall': recall_test,
         'Test AUC': auc_test,
         'Test MCC': mcc_test,
+        'Confusion Matrix': conf_matrix,
         'y_test' : y_test,
         'y_proba': y_proba_test,
         'model name': 'Decision tree no fs'
@@ -468,6 +475,7 @@ def knn_classification_with_feature_selection(train_data, target_column, test_da
 
     mcc_test = matthews_corrcoef(y_test, y_pred)
 
+    conf_matrix = confusion_matrix(y_test, y_pred)
     # Test verisi metriklerini ekle
     metrics.update({
         'Test Accuracy': accuracy_test,
@@ -476,6 +484,7 @@ def knn_classification_with_feature_selection(train_data, target_column, test_da
         'Test Recall': recall_test,
         'Test AUC': auc_test,
         'Test MCC': mcc_test,
+        'Confusion Matrix': conf_matrix,
         'y_test': y_test,
         'y_proba': y_proba,
         'model name': 'KNN fs'
@@ -578,6 +587,7 @@ def knn_classification_no_feature_selection(train_data, target_column, test_data
 
     mcc_test = matthews_corrcoef(y_test, y_pred_test)
 
+    conf_matrix = confusion_matrix(y_test, y_pred_test)
     # Test setindeki metrikleri ekle
     metrics.update({
         'Test Accuracy': accuracy_test,
@@ -586,6 +596,7 @@ def knn_classification_no_feature_selection(train_data, target_column, test_data
         'Test Recall': recall_test,
         'Test AUC': auc_test,
         'Test MCC': mcc_test,
+        'Confusion Matrix': conf_matrix,
         'y_test': y_test,
         'y_proba': y_proba_test,
         'model name': 'KNN no fs'
@@ -690,6 +701,7 @@ def naive_bayes_classification_no_feature_selection(train_data, target_column, t
 
     mcc_test = matthews_corrcoef(y_test, y_pred)
 
+    conf_matrix = confusion_matrix(y_test, y_pred)
     # Test verisi metriklerini ekle
     metrics.update({
         'Test Accuracy': accuracy_test,
@@ -698,6 +710,7 @@ def naive_bayes_classification_no_feature_selection(train_data, target_column, t
         'Test Recall': recall_test,
         'Test AUC': auc_test,
         'Test MCC': mcc_test,
+        'Confusion Matrix': conf_matrix,
         'y_test': y_test,
         'y_proba': y_proba,
         'model name': 'naive bayes no fs'
@@ -810,6 +823,7 @@ def naive_bayes_classification_with_feature_selection(train_data, target_column,
 
     mcc_test = matthews_corrcoef(y_test, y_pred)
 
+    conf_matrix = confusion_matrix(y_test, y_pred)
     # Test verisi metriklerini ekle
     metrics.update({
         'Test Accuracy': accuracy_test,
@@ -818,6 +832,7 @@ def naive_bayes_classification_with_feature_selection(train_data, target_column,
         'Test Recall': recall_test,
         'Test AUC': auc_test,
         'Test MCC': mcc_test,
+        'Confusion Matrix': conf_matrix,
         'y_test': y_test,
         'y_proba': y_proba,
         'model name': 'naive bayes fs'
@@ -922,6 +937,7 @@ def logistic_regression_classification_no_feature_selection(train_data, target_c
 
     mcc_test = matthews_corrcoef(y_test, y_pred)
 
+    conf_matrix = confusion_matrix(y_test, y_pred)
     # Test verisi metriklerini ekle
     metrics.update({
         'Test Accuracy': accuracy_test,
@@ -930,6 +946,7 @@ def logistic_regression_classification_no_feature_selection(train_data, target_c
         'Test Recall': recall_test,
         'Test AUC': auc_test,
         'Test MCC': mcc_test,
+        'Confusion Matrix': conf_matrix,
         'y_test': y_test,
         'y_proba': y_proba,
         'model name': 'logistic regression no fs'
@@ -1042,6 +1059,7 @@ def logistic_regression_classification_with_feature_selection(train_data, target
 
     mcc_test = matthews_corrcoef(y_test, y_pred)
 
+    conf_matrix = confusion_matrix(y_test, y_pred)
     # Test verisi metriklerini ekle
     metrics.update({
         'Test Accuracy': accuracy_test,
@@ -1050,6 +1068,7 @@ def logistic_regression_classification_with_feature_selection(train_data, target
         'Test Recall': recall_test,
         'Test AUC': auc_test,
         'Test MCC': mcc_test,
+        'Confusion Matrix': conf_matrix,
         'y_test': y_test,
         'y_proba': y_proba,
         'model name': 'logistic regression fs'
@@ -1162,6 +1181,7 @@ def random_forest_classification_with_feature_selection(train_data, target_colum
 
     mcc_test = matthews_corrcoef(y_test, y_pred)
 
+    conf_matrix = confusion_matrix(y_test, y_pred)
     # Test verisi metriklerini ekle
     metrics.update({
         'Test Accuracy': accuracy_test,
@@ -1170,6 +1190,7 @@ def random_forest_classification_with_feature_selection(train_data, target_colum
         'Test Recall': recall_test,
         'Test AUC': auc_test,
         'Test MCC': mcc_test,
+        'Confusion Matrix': conf_matrix,
         'y_test': y_test,
         'y_proba': y_proba,
         'model name': 'random forest fs'
@@ -1273,6 +1294,7 @@ def random_forest_classification_no_feature_selection(train_data, target_column,
 
     mcc_test = matthews_corrcoef(y_test, y_pred)
 
+    conf_matrix = confusion_matrix(y_test, y_pred)
     # Test verisi metriklerini ekle
     metrics.update({
         'Test Accuracy': accuracy_test,
@@ -1281,6 +1303,7 @@ def random_forest_classification_no_feature_selection(train_data, target_column,
         'Test Recall': recall_test,
         'Test AUC': auc_test,
         'Test MCC': mcc_test,
+        'Confusion Matrix': conf_matrix,
         'y_test': y_test,
         'y_proba': y_proba,
         'model name': 'random forest no fs'
@@ -1384,6 +1407,7 @@ def svm_classification_no_feature_selection(train_data, target_column, test_data
 
     mcc_test = matthews_corrcoef(y_test, y_pred)
 
+    conf_matrix = confusion_matrix(y_test, y_pred)
     # Test verisi metriklerini ekle
     metrics.update({
         'Test Accuracy': accuracy_test,
@@ -1392,6 +1416,7 @@ def svm_classification_no_feature_selection(train_data, target_column, test_data
         'Test Recall': recall_test,
         'Test AUC': auc_test,
         'Test MCC': mcc_test,
+        'Confusion Matrix': conf_matrix,
         'y_test': y_test,
         'y_proba': y_proba,
         'model name': 'svm no fs'
@@ -1504,6 +1529,7 @@ def svm_classification_with_feature_selection(train_data, target_column, test_da
 
     mcc_test = matthews_corrcoef(y_test, y_pred)
 
+    conf_matrix = confusion_matrix(y_test, y_pred)
     # Test verisi metriklerini ekle
     metrics.update({
         'Test Accuracy': accuracy_test,
@@ -1512,6 +1538,7 @@ def svm_classification_with_feature_selection(train_data, target_column, test_da
         'Test Recall': recall_test,
         'Test AUC': auc_test,
         'Test MCC': mcc_test,
+        'Confusion Matrix': conf_matrix,
         'y_test': y_test,
         'y_proba': y_proba,
         'model name': 'svm fs'
@@ -1624,7 +1651,8 @@ def gbm_classification_with_feature_selection(train_data, target_column, test_da
 
     mcc_test = matthews_corrcoef(y_test, y_pred)
 
-    # Test verisi metriklerini ekle
+    conf_matrix = confusion_matrix(y_test, y_pred)
+
     metrics.update({
         'Test Accuracy': accuracy_test,
         'Test F1 Score': f1_test,
@@ -1632,6 +1660,7 @@ def gbm_classification_with_feature_selection(train_data, target_column, test_da
         'Test Recall': recall_test,
         'Test AUC': auc_test,
         'Test MCC': mcc_test,
+        'Confusion Matrix': conf_matrix,
         'y_test': y_test,
         'y_proba': y_proba,
         'model name': 'gbm fs'
@@ -1736,6 +1765,7 @@ def gbm_classification_no_feature_selection(train_data, target_column, test_data
 
     mcc_test = matthews_corrcoef(y_test, y_pred)
 
+    conf_matrix = confusion_matrix(y_test, y_pred)
     # Test verisi metriklerini ekle
     metrics.update({
         'Test Accuracy': accuracy_test,
@@ -1744,6 +1774,7 @@ def gbm_classification_no_feature_selection(train_data, target_column, test_data
         'Test Recall': recall_test,
         'Test AUC': auc_test,
         'Test MCC': mcc_test,
+        'Confusion Matrix': conf_matrix,
         'y_test': y_test,
         'y_proba': y_proba,
         'model name': 'gbm no fs'
@@ -1849,6 +1880,7 @@ def adaboost_classification_no_feature_selection(train_data, target_column, test
 
     mcc_test = matthews_corrcoef(y_test, y_pred)
 
+    conf_matrix = confusion_matrix(y_test, y_pred)
     # Test verisi metriklerini ekle
     metrics.update({
         'Test Accuracy': accuracy_test,
@@ -1857,6 +1889,7 @@ def adaboost_classification_no_feature_selection(train_data, target_column, test
         'Test Recall': recall_test,
         'Test AUC': auc_test,
         'Test MCC': mcc_test,
+        'Confusion Matrix': conf_matrix,
         'y_test': y_test,
         'y_proba': y_proba,
         'model name': 'ada no fs'
@@ -1969,6 +2002,7 @@ def adaboost_classification_with_feature_selection(train_data, target_column, te
 
     mcc_test = matthews_corrcoef(y_test, y_pred)
 
+    conf_matrix = confusion_matrix(y_test, y_pred)
     # Test verisi metriklerini ekle
     metrics.update({
         'Test Accuracy': accuracy_test,
@@ -1977,6 +2011,7 @@ def adaboost_classification_with_feature_selection(train_data, target_column, te
         'Test Recall': recall_test,
         'Test AUC': auc_test,
         'Test MCC': mcc_test,
+        'Confusion Matrix': conf_matrix,
         'y_test': y_test,
         'y_proba': y_proba,
         'model name': 'ada fs'
@@ -2089,6 +2124,7 @@ def lda_classification_with_feature_selection(train_data, target_column, test_da
 
     mcc_test = matthews_corrcoef(y_test, y_pred)
 
+    conf_matrix = confusion_matrix(y_test, y_pred)
     # Test verisi metriklerini ekle
     metrics.update({
         'Test Accuracy': accuracy_test,
@@ -2097,6 +2133,7 @@ def lda_classification_with_feature_selection(train_data, target_column, test_da
         'Test Recall': recall_test,
         'Test AUC': auc_test,
         'Test MCC': mcc_test,
+        'Confusion Matrix': conf_matrix,
         'y_test': y_test,
         'y_proba': y_proba,
         'model name': 'lda fs'
@@ -2201,6 +2238,7 @@ def lda_classification_no_feature_selection(train_data, target_column, test_data
 
     mcc_test = matthews_corrcoef(y_test, y_pred)
 
+    conf_matrix = confusion_matrix(y_test, y_pred)
     # Test verisi metriklerini ekle
     metrics.update({
         'Test Accuracy': accuracy_test,
@@ -2209,6 +2247,7 @@ def lda_classification_no_feature_selection(train_data, target_column, test_data
         'Test Recall': recall_test,
         'Test AUC': auc_test,
         'Test MCC': mcc_test,
+        'Confusion Matrix': conf_matrix,
         'y_test': y_test,
         'y_proba': y_proba,
         'model name': 'lda no fs'
@@ -2313,6 +2352,7 @@ def ann_classification_no_feature_selection(train_data, target_column, test_data
 
     mcc_test = matthews_corrcoef(y_test, y_pred)
 
+    conf_matrix = confusion_matrix(y_test, y_pred)
     # Test verisi metriklerini ekle
     metrics.update({
         'Test Accuracy': accuracy_test,
@@ -2321,6 +2361,7 @@ def ann_classification_no_feature_selection(train_data, target_column, test_data
         'Test Recall': recall_test,
         'Test AUC': auc_test,
         'Test MCC': mcc_test,
+        'Confusion Matrix': conf_matrix,
         'y_test': y_test,
         'y_proba': y_proba,
         'model name': 'ANN no fs'
@@ -2429,10 +2470,11 @@ def ann_classification_with_feature_selection(train_data, target_column, test_da
     precision_test = precision_score(y_test, y_pred, average='macro')
     recall_test = recall_score(y_test, y_pred, average='macro')
 
-    auc_test = safe_roc_auc_score(y_val_fold, y_proba, multi_class='ovr', average='macro')
+    auc_test = safe_roc_auc_score(y_test, y_proba, multi_class='ovr', average='macro')
 
     mcc_test = matthews_corrcoef(y_test, y_pred)
 
+    conf_matrix = confusion_matrix(y_test, y_pred)
     # Test verisi metriklerini ekle
     metrics.update({
         'Test Accuracy': accuracy_test,
@@ -2441,6 +2483,7 @@ def ann_classification_with_feature_selection(train_data, target_column, test_da
         'Test Recall': recall_test,
         'Test AUC': auc_test,
         'Test MCC': mcc_test,
+        'Confusion Matrix': conf_matrix,
         'y_test': y_test,
         'y_proba': y_proba,
         'model name': 'ANN fs'
@@ -2460,28 +2503,27 @@ for name in array:
     df = df[df[name] == 1]
 
     print(len(df))
-    if len(df) < 100000:
-        print(f"SMOTE uygulanıyor: {name}")
 
-        X = df.drop(columns=['GrainYield'])
-        y = df['GrainYield']
+    print(f"SMOTE uygulanıyor: {name}")
 
-        # Sınıfların sayısını kontrol et
-        class_counts = y.value_counts()
+    X = df.drop(columns=['GrainYield'])
+    y = df['GrainYield']
 
-        # Sınıfların sayısı 1'den fazla olmalı, yoksa SMOTE uygulanmasın
-        if all(class_counts > 1):  # Tüm sınıflar için yeterli örnek olmalı
-            # SMOTE işlemi
-            smote = SMOTE(random_state=42)
-            X_resampled, y_resampled = smote.fit_resample(X, y)
+    # Sınıfların sayısını kontrol et
+    class_counts = y.value_counts()
 
-            # Yeni veri çerçevesi oluşturuluyor
-            df = pd.concat([pd.DataFrame(X_resampled, columns=X.columns),
-                            pd.DataFrame(y_resampled, columns=['GrainYield'])], axis=1)
-        else:
-            print(f"Yeterli sınıf örneği yok, SMOTE uygulanmadı: {name}")
+    # Sınıfların sayısı 1'den fazla olmalı, yoksa SMOTE uygulanmasın
+    if all(class_counts > 1):  # Tüm sınıflar için yeterli örnek olmalı
+        # SMOTE işlemi
+        smote = SMOTE(random_state=42)
+        X_resampled, y_resampled = smote.fit_resample(X, y)
+
+        # Yeni veri çerçevesi oluşturuluyor
+        df = pd.concat([pd.DataFrame(X_resampled, columns=X.columns),
+                        pd.DataFrame(y_resampled, columns=['GrainYield'])], axis=1)
     else:
-        print(f"SMOTE gerekmiyor: {name}")
+        print(f"Yeterli sınıf örneği yok, SMOTE uygulanmadı: {name}")
+
 
     print(len(df))
     best = []
@@ -2496,13 +2538,13 @@ for name in array:
     metrics = decision_tree_classification_with_feature_selection(train_data, 'GrainYield', test_data=test_data, k=5)
 
     accuracy_list.append(metrics)
-    print(metrics['Test Accuracy'])
+    #print(metrics['Test Accuracy'])
     print('_______________________________________')
     print('Decision Tree no fs')
     metrics = decision_tree_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
 
     accuracy_list.append(metrics)
-    print(metrics['Test Accuracy'])
+    #print(metrics['Test Accuracy'])
     print('_______________________________________')
 
 
@@ -2510,13 +2552,13 @@ for name in array:
     metrics = knn_classification_with_feature_selection(train_data, 'GrainYield', test_data=test_data, k=5)
 
     accuracy_list.append(metrics)
-    print(metrics['Test Accuracy'])
+    #print(metrics['Test Accuracy'])
     print('_______________________________________')
     print('knn no fs')
     metrics = knn_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
 
     accuracy_list.append(metrics)
-    print(metrics['Test Accuracy'])
+    #print(metrics['Test Accuracy'])
     print('_______________________________________')
 
 
@@ -2524,13 +2566,13 @@ for name in array:
     metrics = naive_bayes_classification_with_feature_selection(train_data, 'GrainYield', test_data, k=5)
 
     accuracy_list.append(metrics)
-    print(metrics['Test Accuracy'])
+    #print(metrics['Test Accuracy'])
     print('_______________________________________')
     print('naive bayes no fs')
     metrics = naive_bayes_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
 
     accuracy_list.append(metrics)
-    print(metrics['Test Accuracy'])
+    #print(metrics['Test Accuracy'])
     print('_______________________________________')
 
 
@@ -2538,91 +2580,91 @@ for name in array:
     metrics = random_forest_classification_with_feature_selection(train_data, 'GrainYield', test_data=test_data, k=5)
 
     accuracy_list.append(metrics)
-    print(metrics['Test Accuracy'])
+    #print(metrics['Test Accuracy'])
     print('_______________________________________')
     print('random forest no fs')
     metrics = random_forest_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
 
     accuracy_list.append(metrics)
-    print(metrics['Test Accuracy'])
+    #print(metrics['Test Accuracy'])
     print('_______________________________________')
 
     print('logistic regression fs')
     metrics = logistic_regression_classification_with_feature_selection(train_data, 'GrainYield', test_data=test_data, k=5)
 
     accuracy_list.append(metrics)
-    print(metrics['Test Accuracy'])
+    #print(metrics['Test Accuracy'])
     print('_______________________________________')
     print('logistic regression no fs')
     metrics = logistic_regression_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
 
     accuracy_list.append(metrics)
-    print(metrics['Test Accuracy'])
+    #print(metrics['Test Accuracy'])
     print('_______________________________________')
 
     print('svm fs')
     metrics = svm_classification_with_feature_selection(train_data, 'GrainYield', test_data=test_data,k=5)
 
     accuracy_list.append(metrics)
-    print(metrics['Test Accuracy'])
+    #print(metrics['Test Accuracy'])
     print('_______________________________________')
     print('svm no fs')
     metrics = svm_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
 
     accuracy_list.append(metrics)
-    print(metrics['Test Accuracy'])
+    #print(metrics['Test Accuracy'])
     print('_______________________________________')
 
     print('gbm fs')
     metrics = gbm_classification_with_feature_selection(train_data, 'GrainYield', test_data=test_data,k=5)
 
     accuracy_list.append(metrics)
-    print(metrics['Test Accuracy'])
+    #print(metrics['Test Accuracy'])
     print('_______________________________________')
     print('gbm no fs')
     metrics = gbm_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
 
     accuracy_list.append(metrics)
-    print(metrics['Test Accuracy'])
+    #print(metrics['Test Accuracy'])
     print('_______________________________________')
 
     print('lda fs')
     metrics = lda_classification_with_feature_selection(train_data, 'GrainYield', test_data=test_data,k=5)
 
     accuracy_list.append(metrics)
-    print(metrics['Test Accuracy'])
+    #print(metrics['Test Accuracy'])
     print('_______________________________________')
     print('lda no fs')
     metrics = lda_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
 
     accuracy_list.append(metrics)
-    print(metrics['Test Accuracy'])
+    #print(metrics['Test Accuracy'])
     print('_______________________________________')
 
     print('ann fs')
     metrics = ann_classification_with_feature_selection(train_data, 'GrainYield', test_data=test_data,k=5)
 
     accuracy_list.append(metrics)
-    print(metrics['Test Accuracy'])
+    #print(metrics['Test Accuracy'])
     print('_______________________________________')
     print('ann no fs')
     metrics = ann_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
 
     accuracy_list.append(metrics)
-    print(metrics['Test Accuracy'])
+    #print(metrics['Test Accuracy'])
     print('_______________________________________')
 
     print('adaboost fs')
     metrics = adaboost_classification_with_feature_selection(train_data, 'GrainYield', test_data=test_data, k=5)
 
     accuracy_list.append(metrics)
-    print(metrics['Test Accuracy'])
+    #print(metrics['Test Accuracy'])
     print('_______________________________________')
     print('adaboost no fs')
     metrics = adaboost_classification_no_feature_selection(train_data, 'GrainYield', test_data=test_data)
 
     accuracy_list.append(metrics)
-    print(metrics['Test Accuracy'])
+    #print(metrics['Test Accuracy'])
     print('_______________________________________')
 
 
@@ -2631,7 +2673,12 @@ for name in array:
     for i in range (0,3):
         print(f"{i+1}. {accuracy_list[i]['model name']} : {accuracy_list[i]['Test Accuracy']}\n")
         best.append(accuracy_list[i])
-
+    print(best[0]['Confusion Matrix'])
+    sns.heatmap(best[0]['Confusion Matrix'], annot=True, fmt='d', cmap='Blues', xticklabels=['A', 'B', 'C'],yticklabels=['A', 'B', 'C'])
+    plt.xlabel('Tahmin Edilen')
+    plt.ylabel('Gerçek')
+    plt.title('Confusion Matrix')
+    plt.show()
 
 #   plot_roc_curve(best, name)
 
