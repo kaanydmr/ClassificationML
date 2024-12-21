@@ -2493,14 +2493,15 @@ def ann_classification_with_feature_selection(train_data, target_column, test_da
 
 warnings.filterwarnings('ignore')
 
-array = ['CropEstablishment_CT','CropEstablishment_ZT','LandType_Lowland','LandType_MediumLand','LandType_Upland','SoilType_Heavy','SoilType_Low','SoilType_Medium','SowingSchedule_T1','SowingSchedule_T2','SowingSchedule_T3','SowingSchedule_T4','SowingSchedule_T5','State_Bihar','State_UP','VarietyClass_LDV','VarietyClass_SDV']
+array = ['CropEstablishment_CT_line','State_Bihar','State_UP','CropEstablishment_CT','CropEstablishment_ZT','LandType_Lowland','LandType_MediumLand','LandType_Upland','SoilType_Heavy','SoilType_Low','SoilType_Medium','SowingSchedule_T1','SowingSchedule_T2','SowingSchedule_T3','SowingSchedule_T4','SowingSchedule_T5','VarietyClass_LDV','VarietyClass_SDV']
 # 'CropEstablishment_CT_line'
 path = 'Data_processed2.xlsx'
 
 
 for name in array:
     df = pd.read_excel(path)
-    df = df[df[name] == 1]
+    #df = df[df[name] == 1]
+
 
     print(len(df))
 
@@ -2526,6 +2527,11 @@ for name in array:
 
 
     print(len(df))
+
+    value_counts = df['GrainYield'].value_counts()
+
+
+
     best = []
 
     accuracy_list = []
@@ -2675,12 +2681,19 @@ for name in array:
         best.append(accuracy_list[i])
     print(best[0]['Confusion Matrix'])
     sns.heatmap(best[0]['Confusion Matrix'], annot=True, fmt='d', cmap='Blues', xticklabels=['A', 'B', 'C'],yticklabels=['A', 'B', 'C'])
-    plt.xlabel('Tahmin Edilen')
-    plt.ylabel('Gerçek')
-    plt.title('Confusion Matrix')
+    plt.xlabel('Predicted')
+    plt.ylabel('Real Value')
+    plt.title(f"{name}-{best[0]['model name']}-Confusion Matrix")
+    save_dir = f'confusion_matrix'
+    # Klasör yoksa oluştur
+    if not os.path.exists(save_dir):
+        os.makedirs(save_dir)
+    file_path = os.path.join(save_dir, f"{name}_confusion_matrix.png")
+    plt.savefig(file_path)
     plt.show()
 
-#   plot_roc_curve(best, name)
+
+    plot_roc_curve(best, name)
 
 
 
